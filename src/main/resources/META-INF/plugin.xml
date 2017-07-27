@@ -1,0 +1,90 @@
+<!DOCTYPE idea-plugin PUBLIC "Plugin/DTD" "http://plugins.intellij.net/plugin.dtd">
+<idea-plugin>
+    <id>com.singingbush.plugins.diet</id>
+    <name>Diet Template Support</name>
+    <version>@version@</version>
+    <vendor email="singingbush@hotmail.com" url="http://singingbush.com">singingbush.com</vendor>
+
+    <description><![CDATA[
+     <p>Diet templates are HTML templates which are statically compiled down to native D code.</p>
+     <p>This plugin provides syntax highlighting for Diet Templates (<a href="http://vibed.org/templates/diet">http://vibed.org/templates/diet</a>) by making use of the lexer in the PUG plugin</p>
+     <p>This plugin requires the DLanguage and PUG (ex-jade) plugins to be installed. It's not compatible with the Community Edition</p>
+    ]]></description>
+
+    <change-notes><![CDATA[
+        <b>v1.0</b><br/>
+        <ul>
+            <li>Initial release. Compatible with Intellij 2017.1.*</li>
+        </ul>
+    ]]></change-notes>
+
+    <!-- please see http://confluence.jetbrains.com/display/IDEADEV/Build+Number+Ranges for description -->
+    <idea-version since-build="171" until-build="172.*"/>
+
+    <!-- depending on modules.lang enables the plugin to work in all products -->
+    <depends>com.intellij.modules.lang</depends>
+
+    <depends>net.masterthought.dlanguage</depends>
+
+    <depends>com.jetbrains.plugins.jade</depends>
+    <depends>com.intellij.css</depends>
+    <depends>JavaScript</depends>
+
+    <!--read up on http://www.jetbrains.org/intellij/sdk/docs/basics/plugin_structure/plugin_extensions_and_extension_points.html-->
+    <!--<extensionPoints>-->
+        <!--<extensionPoint name="MyExtensionPoint1" beanClass="MyPlugin.MyBeanClass1">-->
+        <!--<extensionPoint name="MyExtensionPoint2" interface="MyPlugin.MyInterface">-->
+    <!--</extensionPoints>-->
+
+    <!--<extensions defaultExtensionNs="com.intellij.css"></extensions>-->
+
+    <!--<extensions defaultExtensionNs="com.jetbrains.plugins.jade">-->
+        <!--&lt;!&ndash;<extension id="" order=""/>&ndash;&gt;-->
+        <!--<intentionAndInspectionFilter language="dlangInDiet" implementationClass="com.singingbush.plugins.diet.DlangInDietInspectionFilter"/>-->
+        <!--&lt;!&ndash;<inheritedLanguagesConfigurableProvider language="dlangInDiet" implementationClass="com.singingbush.plugins.diet.DlangInDietConfigurableProvider"/>&ndash;&gt;-->
+        <!--<indexedFileTypeProvider implementation="com.singingbush.plugins.diet.DlangInDietIndexedFileTypeProvider"/>-->
+    <!--</extensions>-->
+
+    <!--<extensions defaultExtensionNs="JavaScript">-->
+        <!--<intentionAndInspectionFilter language="JSInJade" implementationClass="com.jetbrains.plugins.jade.js.JavaScriptInJadeInspectionFilter"/>-->
+        <!--<inheritedLanguagesConfigurableProvider language="JSInJade"-->
+                                                <!--implementationClass="com.jetbrains.plugins.jade.js.JSInJadeConfigurableProvider"/>-->
+
+        <!--<indexedFileTypeProvider implementation="com.jetbrains.plugins.jade.js.JSInJadeIndexedFileTypeProvider"/>-->
+    <!--</extensions>-->
+
+    <extensions defaultExtensionNs="com.intellij">
+
+        <!-- DietTypes is generated at build time -->
+        <stubElementTypeHolder id="dietTypes" class="com.singingbush.plugins.diet.psi.DietTypes"/>
+
+        <fileTypeFactory id="dietFileTypeFactory" implementation="com.singingbush.plugins.diet.DietFileTypeFactory" />
+
+        <lang.parserDefinition id="dietParserDefinition" language="diet" implementationClass="com.singingbush.plugins.diet.DietParserDefinition"/>
+
+        <lang.syntaxHighlighterFactory language="diet" implementationClass="com.singingbush.plugins.diet.highlighting.DietSyntaxHighlighterFactory" />
+
+        <colorSettingsPage id="dietColorSettingsPage" implementation="com.singingbush.plugins.diet.settings.DietColorSettingsPage"/>
+    </extensions>
+
+    <extensions defaultExtensionNs="com.intellij.spellchecker">
+        <!--<support language="diet" implementationClass="com.singingbush.plugins.diet.DietSpellcheckerStrategy"/>-->
+    </extensions>
+
+    <application-components>
+        <!-- Add your application components here -->
+    </application-components>
+
+    <actions>
+        <!-- Add your Actions here -->
+    </actions>
+
+    <module-components>
+        <!-- Add your module components here -->
+    </module-components>
+
+    <project-components>
+        <!-- Add your project components here -->
+    </project-components>
+
+</idea-plugin>

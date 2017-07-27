@@ -1,3 +1,7 @@
+import org.apache.tools.ant.filters.ReplaceTokens
+import org.jetbrains.grammarkit.tasks.GenerateLexer
+import org.jetbrains.grammarkit.tasks.GenerateParser
+
 buildscript {
     repositories {
         mavenCentral()
@@ -5,7 +9,7 @@ buildscript {
         maven { url 'https://jitpack.io' }
     }
     dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version-2"
         classpath "com.github.hurricup:gradle-grammar-kit-plugin:2017.1.1"
     }
 }
@@ -36,25 +40,35 @@ tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
     options.compilerArgs << "-Xlint:deprecation"
 }
-//def genRoot = file('gen')
+
+def genRoot = file('build/gen')
 
 apply plugin: 'kotlin'
 
-//sourceSets {
-//    main.java.srcDirs += genRoot
-//}
+sourceSets {
+    main.java.srcDirs = files(genRoot) // we only have generated Java source
+}
 
 apply plugin: 'org.jetbrains.grammarkit'
 
-task generateLexer(type: org.jetbrains.grammarkit.tasks.GenerateLexer) {
-    source = "src/main/kotlin/com/singingbush/plugins/diet/lexer/DietLexer.flex"
-    targetDir = "src/main/java/com/singingbush/plugins/diet/lexer/"
+task generateDietParser(type: GenerateParser) {
+    source = "grammar/diet.bnf"
+    targetRoot = 'build/gen'
+    pathToParser = '/com/singingbush/plugins/diet/parser/DietParser.java'
+    pathToPsiRoot = '/com/singingbush/plugins/diet/psi'
+    purgeOldFiles = true
+}
+
+task generateDietLexer(type: GenerateLexer) {
+    source = "grammar/_DietLexer.flex"
+    targetDir = "build/gen/com/singingbush/plugins/diet/parser/"
     targetClass = "_DietLexer"
     purgeOldFiles = true
 }
 
-project.compileJava.dependsOn generateLexer
-project.compileKotlin.dependsOn generateLexer
+project.generateDietLexer.dependsOn generateDietParser
+project.compileJava.dependsOn generateDietLexer
+project.compileKotlin.dependsOn generateDietLexer
 // --- end the code gen stuff
 
 
@@ -106,7 +120,7 @@ allprojects {
     task initConfig(type: Copy) {
         from('src/main/resources') {
             include '**/plugin.xml'
-            filter(org.apache.tools.ant.filters.ReplaceTokens, tokens: [version: version])
+            filter(ReplaceTokens, tokens: [version: version])
         }
     }
 
@@ -140,11 +154,11 @@ repositories {
 }
 
 dependencies {
-    //compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
-    compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version" // will also pull in stdlib
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
+    //compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version" // will also pull in stdlib
     //runtime 'org.jetbrains.plugins:net.masterthought.dlanguage' // for basic D stuff
     //runtime 'org.jetbrains.plugins:com.jetbrains.plugins.jade' // for diet templates
-    testCompile 'io.kotlintest:kotlintest:1.3.3'
+    //testCompile 'io.kotlintest:kotlintest:1.3.3'
 }
 
 apply plugin: 'idea'
@@ -153,5 +167,8 @@ idea {
         jdkName = javaVersion
         languageLevel = javaVersion
         vcs = 'Git'
+    }
+    module {
+        generatedSourceDirs += genRoot
     }
 }

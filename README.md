@@ -1,6 +1,8 @@
 Intellij Diet Plugin
 ====================
 
+## This plugin is incomplete - do not use until released to the Jetbrains repo
+
 This plugin adds support for [Diet templates](http://vibed.org/templates/diet), you should have the [intellij-dlanguage](https://github.com/intellij-dlanguage/intellij-dlanguage/) plugin installed as a prerequisite.
 
 ### What are Diet templates?

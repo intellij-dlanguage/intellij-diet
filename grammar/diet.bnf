@@ -1,0 +1,37 @@
+{
+    parserClass="com.singingbush.plugins.diet.parser.DietParser" // gets generated
+    extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
+
+    psiClassPrefix="Diet"
+    psiImplClassSuffix="Impl"
+    psiPackage="com.singingbush.plugins.diet.psi"
+    psiImplPackage="com.singingbush.plugins.diet.psi.impl"
+    elementTypeHolderClass="com.singingbush.plugins.diet.psi.DietTypes" // gets generated
+
+    elementTypeClass="com.singingbush.plugins.diet.psi.DietElementType" // Kotlin
+    tokenTypeClass="com.singingbush.plugins.diet.psi.DietTokenType" // Kotlin
+
+    // used to attach custom methods into the classes - e.g. Identifier
+    //psiImplUtilClass="com.singingbush.plugins.diet.psi.impl.DietPsiImplUtil"
+
+    // http://vibed.org/templates/diet#grammar
+    tokens=[
+        // currently only html5 doctype is supported by diet (but I'll add the others supported by Pug)
+        doctype='regexp:doctype\ (html|xml|transitional|strict|frameset|[1.1]|basic|mobile|plist)'
+        comment='regexp://[^\n\r]*'
+        indent = 'regexp:^\s+'
+        filter = 'regexp:(:(css|javascript|markdown|htmlescape))'
+        dq_string = 'regexp:("[^"]*")'
+        sq_string = "regexp:('[^']*')"
+        //brackets  = "regexp:\(.*\)"
+        eq     = '='
+        hyphen = '-'
+        digit  = "regexp:(a-z|A-Z)"
+        digit  = "regexp:\d"
+        empty  = '^$' // a blank line
+    ]
+
+}
+
+tag       ::= 'regexp:((\.|#)?[a-zA-Z|\d|\-])+'
+
