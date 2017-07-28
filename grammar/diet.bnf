@@ -19,7 +19,7 @@
         // currently only html5 doctype is supported by diet (but I'll add the others supported by Pug)
         doctype='regexp:doctype\ (html|xml|transitional|strict|frameset|[1.1]|basic|mobile|plist)'
         comment='regexp://[^\n\r]*'
-        indent = 'regexp:^\s+'
+        //indent = 'regexp:(^\s+)'  // todo: find out why this breaks code gen
         filter = 'regexp:(:(css|javascript|markdown|htmlescape))'
         dq_string = 'regexp:("[^"]*")'
         sq_string = "regexp:('[^']*')"
@@ -34,4 +34,4 @@
 }
 
 tag       ::= 'regexp:((\.|#)?[a-zA-Z|\d|\-])+'
-
+comment_node ::= '//' text | '//-' text | '//if' text

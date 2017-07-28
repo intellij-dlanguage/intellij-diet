@@ -27,7 +27,6 @@ WHITE_SPACE=\s+
 
 DOCTYPE=doctype\ (html|xml|transitional|strict|frameset|[1.1]|basic|mobile|plist)
 COMMENT="//"[^\n\r]*
-INDENT=^[ \t\n\x0B\f\r]+
 FILTER=(:(css|javascript|markdown|htmlescape))
 DQ_STRING=(\"[^\"]*\")
 SQ_STRING=('[^']*')
@@ -37,15 +36,13 @@ DIGIT=[0-9]
 <YYINITIAL> {
   {WHITE_SPACE}      { return WHITE_SPACE; }
 
-  "\\R"              { return EOL; }
-  "\\s+"             { return WHITE_SPACE; }
   "="                { return EQ; }
   "-"                { return HYPHEN; }
   "^$"               { return EMPTY; }
+  "text"             { return TEXT; }
 
   {DOCTYPE}          { return DOCTYPE; }
   {COMMENT}          { return COMMENT; }
-  {INDENT}           { return INDENT; }
   {FILTER}           { return FILTER; }
   {DQ_STRING}        { return DQ_STRING; }
   {SQ_STRING}        { return SQ_STRING; }
