@@ -14,19 +14,31 @@ The syntax equals that of [Pug](https://pugjs.org/) templates with the exception
 A Diet template could like like:
 
 ```diet
+- void css(string file)
+	link(rel= 'stylesheet', type='text/css', href='styles/#{file}.css')
+	
 doctype html
-html
+html(lang="en")
     head
+        // this comment will be in the HTML
         title D statement test
+        - css("styles");
+        :css
+            body { background-color: gray; }
     body
+        //- this comment will not be in the HTML
         - import std.algorithm : min;
-        p Four items ahead:
+        p#myId Four items ahead:
         - foreach( i; 0 .. 4 )
             - auto num = i+1;
             p Item
                 b= num
-        p Prints 8:
+        p.someClass Prints 8:
         p= min(10, 2*6, 8)
+        a(class='btn', href='google.com') Google
+        :markdown
+            It's easy to add [markdown](http://daringfireball.net/projects/markdown/)
+            to your templates.
 ```
 ### Supported versions of IntelliJ
 
@@ -39,11 +51,11 @@ html
 The project uses Gradle with the [gradle-intellij-plugin](https://github.com/JetBrains/gradle-intellij-plugin). Simply use the Gradle wrapper in the root of the project to build the plugin using the following:
 
 ```bash
-./gradlew :runIde
+./gradlew :assemble
 ```
 
 You can also use the plugin to boot up a stand alone instance of IntelliJ with the plugin installed using:
 
 ```bash
-./gradlew runIde
+./gradlew :runIde
 ```
