@@ -9,13 +9,13 @@ buildscript {
         maven { url 'https://jitpack.io' }
     }
     dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version-2"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "com.github.hurricup:gradle-grammar-kit-plugin:2017.1.1"
     }
 }
 
 plugins {
-    id 'org.jetbrains.intellij' version '0.2.14'
+    id 'org.jetbrains.intellij' version '0.2.17'
 }
 
 
@@ -131,7 +131,7 @@ allprojects {
         // Pug (ex-Jade) = jade:171.1834.8
         // markdown:2017.1.20170119
         // Should work in: IntelliJ IDEA PhpStorm WebStorm PyCharm RubyMine AppCode CLion Gogland Rider
-        plugins 'net.masterthought.dlanguage:1.13', 'com.jetbrains.plugins.jade:171.2822.13', 'CSS', 'JavaScriptLanguage' // use the PUG (ex-Jade) plugin for providing basic syntax highlighting
+        plugins 'net.masterthought.dlanguage:1.15.1', 'com.jetbrains.plugins.jade:172.2656.13', 'CSS', 'JavaScriptLanguage' // use the PUG (ex-Jade) plugin for providing basic syntax highlighting
         type 'IU' // required as cannot run plugin in Community Edition because PUG (ex-Jade) plugin needs 'com.intellij.css:171.4249.39' and 'JavaScript:1.0' which are not in the repo
         //localPath '/Applications/IntelliJ IDEA.app/Contents' // if using this, make sure to remove 'version'
 
