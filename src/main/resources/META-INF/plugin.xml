@@ -14,12 +14,12 @@
     <change-notes><![CDATA[
         <b>v1.0</b><br/>
         <ul>
-            <li>Initial release. Compatible with Intellij 2017.1.*</li>
+            <li>Initial release. Compatible with Intellij 2017.2.*</li>
         </ul>
     ]]></change-notes>
 
     <!-- please see http://confluence.jetbrains.com/display/IDEADEV/Build+Number+Ranges for description -->
-    <idea-version since-build="171" until-build="172.*"/>
+    <idea-version since-build="172" until-build="181.*"/>
 
     <!-- depending on modules.lang enables the plugin to work in all products -->
     <depends>com.intellij.modules.lang</depends>
