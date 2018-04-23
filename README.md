@@ -44,7 +44,7 @@ html(lang="en")
 
 | Plugin Version | IntelliJ Versions |
 | :--- | :--- |
-| v1 (not yet released) | 2017.1.* - 2017.3 |
+| v1 (not yet released) | 2017.1.* - 2018.1 |
 
 ### Building and running the code
 
