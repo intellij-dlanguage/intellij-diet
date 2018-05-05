@@ -15,7 +15,7 @@ buildscript {
 }
 
 plugins {
-    id 'org.jetbrains.intellij' version '0.2.18'
+    id 'org.jetbrains.intellij' version '0.3.1'
 }
 
 
@@ -131,7 +131,7 @@ allprojects {
         // Pug (ex-Jade) = jade:173.1310
         // markdown:2017.1.20170119
         // Should work in: IntelliJ IDEA PhpStorm WebStorm PyCharm RubyMine AppCode CLion Gogland Rider
-        plugins 'net.masterthought.dlanguage:1.16.1', 'com.jetbrains.plugins.jade:173.1310', 'CSS', 'JavaScriptLanguage' // use the PUG (ex-Jade) plugin for providing basic syntax highlighting
+        plugins 'net.masterthought.dlanguage:1.16.2', 'com.jetbrains.plugins.jade:173.1310', 'CSS', 'JavaScriptLanguage' // use the PUG (ex-Jade) plugin for providing basic syntax highlighting
         type 'IU' // required as cannot run plugin in Community Edition because PUG (ex-Jade) plugin needs 'com.intellij.css:171.4249.39' and 'JavaScript:1.0' which are not in the repo
         //localPath '/Applications/IntelliJ IDEA.app/Contents' // if using this, make sure to remove 'version'
 
