@@ -15,17 +15,19 @@ import javax.swing.Icon
  */
 class DietColorSettingsPage : ColorSettingsPage {
 
-    private val ATTRIBUTE_DESCRIPTORS = arrayOf(
-        AttributesDescriptor("Line Comment", DietSyntaxHighlighter.LINE_COMMENT),
-        AttributesDescriptor("Block Comment", DietSyntaxHighlighter.BLOCK_COMMENT),
-        AttributesDescriptor("String", DietSyntaxHighlighter.STRING),
-        AttributesDescriptor("Number", DietSyntaxHighlighter.NUMBER),
-        AttributesDescriptor("Keyword", DietSyntaxHighlighter.KEYWORD)
-    )
+    private companion object {
+        val ATTRIBUTE_DESCRIPTORS = arrayOf(
+            AttributesDescriptor("Line Comment", DietSyntaxHighlighter.LINE_COMMENT),
+            AttributesDescriptor("Block Comment", DietSyntaxHighlighter.BLOCK_COMMENT),
+            AttributesDescriptor("String", DietSyntaxHighlighter.STRING),
+            AttributesDescriptor("Number", DietSyntaxHighlighter.NUMBER),
+            AttributesDescriptor("Keyword", DietSyntaxHighlighter.KEYWORD)
+        )
 
-    private val ATTRIBUTES_KEY_MAP = hashMapOf(
-        "KEYWORD" to DietSyntaxHighlighter.KEYWORD
-    )
+        val ATTRIBUTES_KEY_MAP = hashMapOf(
+            "KEYWORD" to DietSyntaxHighlighter.KEYWORD
+        )
+    }
 
     override fun getHighlighter(): SyntaxHighlighter = DietSyntaxHighlighter()
 

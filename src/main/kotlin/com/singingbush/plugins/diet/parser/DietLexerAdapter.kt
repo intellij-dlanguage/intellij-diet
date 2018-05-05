@@ -6,4 +6,4 @@ import com.intellij.lexer.FlexAdapter
  * @author Samael Bate (singingbush)
  * created on 02/05/17
  */
-class DietLexerAdapter : FlexAdapter(_DietLexer(null))
+class DietLexerAdapter : FlexAdapter(_DietLexer(null)) // FlexAdapter(com.jetbrains.plugins.jade.lexer._JadeLexer(null))
