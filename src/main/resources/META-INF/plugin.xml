@@ -19,9 +19,9 @@
     ]]></change-notes>
 
     <!-- please see http://confluence.jetbrains.com/display/IDEADEV/Build+Number+Ranges for description -->
-    <idea-version since-build="181" until-build="181.*"/>
+    <idea-version since-build="192" until-build="192.*"/>
 
-    <!-- depending on modules.lang enables the plugin to work in all products -->
+    <depends>com.intellij.modules.platform</depends>
     <depends>com.intellij.modules.lang</depends>
 
     <depends>net.masterthought.dlanguage</depends>
