@@ -1,21 +1,15 @@
 import org.apache.tools.ant.filters.ReplaceTokens
-import org.jetbrains.grammarkit.tasks.GenerateLexer
-import org.jetbrains.grammarkit.tasks.GenerateParser
 
 buildscript {
     repositories {
         mavenCentral()
-        maven { url 'http://dl.bintray.com/jetbrains/intellij-plugin-service' }
-        maven { url 'https://jitpack.io' }
-    }
-    dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "com.github.hurricup:gradle-grammar-kit-plugin:2019.3"
     }
 }
 
 plugins {
-    id 'org.jetbrains.intellij' version '0.4.15'
+    id 'org.jetbrains.intellij' version '1.5.3'
+    id 'org.jetbrains.kotlin.jvm' version '1.5.10' // This should match the Kotlin version in gradle.properties. (update to '1.5.31' when bump min Intellij)
+    id 'org.jetbrains.grammarkit' version '2021.2.2'
 }
 
 
@@ -51,7 +45,7 @@ sourceSets {
 
 apply plugin: 'org.jetbrains.grammarkit'
 
-task generateDietParser(type: GenerateParser) {
+generateParser {
     source = "grammar/diet.bnf"
     targetRoot = 'build/gen'
     pathToParser = '/com/singingbush/plugins/diet/parser/DietParser.java'
@@ -59,16 +53,16 @@ task generateDietParser(type: GenerateParser) {
     purgeOldFiles = true
 }
 
-task generateDietLexer(type: GenerateLexer) {
+generateLexer {
     source = "grammar/_DietLexer.flex"
     targetDir = "build/gen/com/singingbush/plugins/diet/parser/"
     targetClass = "_DietLexer"
     purgeOldFiles = true
 }
 
-project.generateDietLexer.dependsOn generateDietParser
-project.compileJava.dependsOn generateDietLexer
-project.compileKotlin.dependsOn generateDietLexer
+project.generateLexer.dependsOn generateParser
+project.compileJava.dependsOn generateLexer
+project.compileKotlin.dependsOn generateLexer
 // --- end the code gen stuff
 
 
@@ -126,20 +120,22 @@ allprojects {
 
     apply plugin: 'org.jetbrains.intellij'
     intellij {
-        pluginName 'diet'
-        version ideaVersion
+        pluginName = 'intellij-diet'
+        version = ideaVersion
         // Pug (ex-Jade) = jade:173.1310
         // markdown:2017.1.20170119
         // Should work in: IntelliJ IDEA PhpStorm WebStorm PyCharm RubyMine AppCode CLion Gogland Rider
         // use the PUG (ex-Jade) plugin for providing basic syntax highlighting
-        plugins 'net.masterthought.dlanguage:1.22', 'com.jetbrains.plugins.jade:193.5233.116', 'CSS', 'JavaScriptLanguage'
-        type 'IU' // required as cannot run plugin in Community Edition because PUG (ex-Jade) plugin needs 'com.intellij.css:171.4249.39' and 'JavaScript:1.0' which are not in the repo
+        plugins = ['net.masterthought.dlanguage:1.27.2', 'com.jetbrains.plugins.jade:213.5744.223', 'CSS', 'JavaScriptLanguage']
+        type = 'IU' // required as cannot run plugin in Community Edition because PUG (ex-Jade) plugin needs 'com.intellij.css:171.4249.39' and 'JavaScript:1.0' which are not in the repo
         //localPath '/Applications/IntelliJ IDEA.app/Contents' // if using this, make sure to remove 'version'
+        updateSinceUntilBuild = false
 
         publishPlugin {
-            username System.getenv('JETBRAINS_USERNAME')
-            password System.getenv('JETBRAINS_PASSWORD')
-            channels publishChannels
+            token = provider {
+                System.getenv('JETBRAINS_TOKEN')
+            }
+            channels = [publishChannels]
         }
     }
 
