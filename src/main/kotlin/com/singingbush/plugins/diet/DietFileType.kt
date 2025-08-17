@@ -9,7 +9,7 @@ import javax.swing.Icon
  * created on 02/05/2017
  */
 object DietFileType : LanguageFileType(DietLanguage) {
-    override fun getIcon(): Icon? = IconLoader.getIcon("/icons/vibe-d.png") // JadeIcons.Pug
+    override fun getIcon(): Icon = IconLoader.getIcon("/icons/vibe-d.png", DietFileType::class.java) // JadeIcons.Pug
     override fun getName(): String = "Diet"
     override fun getDefaultExtension(): String = "dt"
     override fun getDescription(): String = "Diet template language"

@@ -43,8 +43,6 @@ class DietParserDefinition : ParserDefinition { // JadeParserDefinition() {
 
     override fun createParser(project: Project?): PsiParser = DietParser() //JadeParser(CodeStyleSettingsManager.getSettings(project))
 
-    override fun spaceExistanceTypeBetweenTokens(left: ASTNode?, right: ASTNode?): ParserDefinition.SpaceRequirements = ParserDefinition.SpaceRequirements.MAY
-
     override fun getStringLiteralElements(): TokenSet = TokenSet.create(DietTokenType.TEXT)
 
     override fun getFileNodeType(): IFileElementType = DietFileElementType()
@@ -55,6 +53,5 @@ class DietParserDefinition : ParserDefinition { // JadeParserDefinition() {
 
     override fun getCommentTokens(): TokenSet = TokenSet.create(DietTypes.COMMENT_NODE)
 
-
-    override fun createFile(viewProvider: FileViewProvider?): PsiFile = DietFile(viewProvider!!)
+    override fun createFile(viewProvider: FileViewProvider): PsiFile = DietFile(viewProvider)
 }
